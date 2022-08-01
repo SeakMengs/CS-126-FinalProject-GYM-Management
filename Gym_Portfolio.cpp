@@ -39,16 +39,99 @@ struct gym {
 
 //? User Menu
 void userMenu() {
-    clear();
-    cout << "Hello";
-    Sleep(5000);
+    string choiceInput;
+    char choice;
+    while (choice != '1' || choice != '2' || choice != '3' || choice != 'b' || choice != 'B' )
+    {
+        clear();
+        cout << "********************************" << endl;
+        cout << "|GYM-MANGEMENT SYSTEM USER MODE|" << endl;
+        cout << "********************************" << endl;
+        cout << "[1] Register GYM membership" << endl;
+        cout << "[2] Edit your membership" << endl;
+        cout << "[3] Delete your membership" << endl;
+        cout << "[B] Go back to Main-Menu" << endl;
+        cout << endl;
+        cout << "Your choice: ";
+        //? This will get only the first character the user enter
+        getline(cin, choiceInput);
+        if (choiceInput.size() == 1) {
+            choice = choiceInput[0];
+        }
+        if (choice == 'b' || choice == 'B')
+        {
+            clear();
+            cout << "Going back to Main-Menu";
+            loading();
+            clear();
+            break;
+        } 
+        switch (choice) {
+            case '1': 
+                
+                break;
+            case '2': 
+                break;
+            case '3': 
+                break;
+            default:
+                cout << "\nPlease try again";
+                loading();
+                clear();
+        }
+    }
 }
 
 //? Admin Menu
 void adminMenu() {
     clear();
-    cout << "Hello";
-    Sleep(5000);
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ADD Login Feature later!!!
+    string choiceInput;
+    char choice;
+    while (choice != '1' || choice != '2' || choice != '3' || choice != '4' || choice != '5' || choice != 'b' || choice != 'B' )
+    {
+        clear();
+        cout << "*********************************" << endl;
+        cout << "|GYM-MANGEMENT SYSTEM ADMIN MODE|" << endl;
+        cout << "*********************************" << endl;
+        cout << "[1] Register GYM membership" << endl;
+        cout << "[2] Edit membership" << endl;
+        cout << "[3] Search for a particular membership" << endl;
+        cout << "[4] Display all memberships" << endl;
+        cout << "[5] Delete membership" << endl;
+        cout << "[B] Go back to Main-Menu" << endl;
+        cout << endl;
+        cout << "Your choice: ";
+        //? This will get only the first character the user enter
+        getline(cin, choiceInput);
+        if (choiceInput.size() == 1) {
+            choice = choiceInput[0];
+        }
+        if (choice == 'b' || choice == 'B')
+        {
+            clear();
+            cout << "Going back to Main-Menu";
+            loading();
+            clear();
+            break;
+        } 
+        switch (choice) {
+            case '1': 
+                break;
+            case '2': 
+                break;
+            case '3': 
+                break;
+            case '4': 
+                break;
+            case '5': 
+                break;
+            default:
+                cout << "\nPlease try again";
+                loading();
+                clear();
+        }
+    }
 }
 
 //? Main Menu when start
@@ -66,7 +149,7 @@ void mainMenu() {
         cout << "[X] Exit" << endl;
         cout << endl;
         cout << "Your choice: ";
-        //! This will get only the first letter the user enter
+        //? This will get only the first character the user enter
         getline(cin, choiceInput);
         if (choiceInput.size() == 1) {
             choice = choiceInput[0];
