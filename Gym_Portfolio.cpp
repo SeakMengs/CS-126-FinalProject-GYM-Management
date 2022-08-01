@@ -25,15 +25,46 @@ void loading() {
 struct gym {
     //? Declare of user infos in order to collect and store
     int id;
-    char name;
+    string name;
     int contact;
     string subcription;
     string time;
     string pw;
 
+    //! Function to return variable value in struct
+    int id() {
+        return id;
+    }
+    string name() {
+        return name;
+    }
+    //? Use for user pw validation
+    string pw() {
+        return pw;
+    }
+    //!!!!!!!!!!!!!!! End of returning variable function !!!!!!!!!!!!!!!!!!!!!!!
+    //? GYM LOGO on top
+    void logo() {
+        clear();
+        cout << "********************************" << endl;
+        cout << "|GYM-MANGEMENT SYSTEM USER MODE|" << endl;
+        cout << "********************************" << endl;
+    }
     //? Function to create memembers
     void createMemember() {
-        
+        logo();
+        cout << "Enter ID: ";
+        cin >> id;
+        cout << "Enter Name: ";
+        cin >> name;
+        cout << "Enter Contact: ";
+        cin >> contact;
+        cout << "Enter Subscription: ";
+        cin >> id;
+        cout << "Enter Time: ";
+        cin >> id;
+        cout << "Enter Password: ";
+        cin >> pw;
     }
 };
 
