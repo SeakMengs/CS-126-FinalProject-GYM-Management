@@ -28,7 +28,7 @@ class gym {
     string name;
     int contact;
     string subscription;
-    string time;
+    // string time;
     string pw;
     string fee;
 
@@ -54,21 +54,24 @@ class gym {
         cout << "********************************" << endl;
     }
     //? Function to choose subscription
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! BBBBBBBBBBBUUUUUUUUUUUUUUUUUUGGGGGGGGGGGGGGGGGGGGGG
     void gymSubscription() { 
-        string choiceInput;
-        char choice;
-        while (choice != '1' || choice != '2' || choice != '3')
-        {   
+            string choiceInput;
+            char choice;
+        while (choice != '1' || choice != '2' || choice != '3' || choice != 'b' || choice != 'B' )
+        {
             cout << "Choose membership subscription" << endl;
             cout << "[1] Diamond Membership" << endl;
             cout << "[2] Gold Membership" << endl;
             cout << "[3] Bronze Membership" << endl;
             cout << "Enter choice: ";
             //? This will get only the first character the user enter
+            cin.clear();
+            cin.ignore();
             getline(cin, choiceInput);
             if (choiceInput.size() == 1) {
                 choice = choiceInput[0];
-            }
+            } 
             switch (choice) {
                 case '1': 
                     subscription = "Diamond Membership";
@@ -87,32 +90,38 @@ class gym {
                     loading();
                     cout << "\n\n";
             }
+            break;
         }
-        }
-        //? Function to create memembers
-        void createMemember() {
-            logo();
-            cout << "Enter ID: ";
-            cin >> id;
-            cout << "\n\n";
-            cout << "Enter Name: ";
-            cin >> name;
-            cout << "\n\n";
-            cout << "Enter Contact: ";
-            cin >> contact;
-            cout << "\n\n";
-            cin.ignore();
-            gymSubscription();
-            cout << "\n\n";
-            cout << "Enter Time: ";
-            cin >> id;
-            cout << "\n\n";
-            cout << "Enter Password: ";
-            cin >> pw;
-            cout << "\n";
-        }
+    }
+    //? Get data from user
+    void getData() {
+        logo();
+        cout << "Enter ID: ";
+        cin >> id;
+        cout << "\n\n";
+        cout << "Enter Name: ";
+        cin >> name;
+        cout << "\n\n";
+        cout << "Enter Contact: ";
+        cin >> contact;
+        cout << "\n\n";
+        gymSubscription();
+        cout << "\n\n";
+        // cout << "Enter Time: ";
+        // cin >> id;
+        cout << "\n\n";
+        cout << "Enter Password: ";
+        cin >> pw;
+        cout << "\n";
+    }
+    //? Function to create memembers
+    void createMemember() {
+        getData();
+        // fstream file("GymDatabase.txt");
+
+    }
 };
-//! End of Class
+//!!!!!!! End of Class !!!!!!!!!
 //? delcare a vector to store info
 vector <gym> gymInfo;
 gym gymFunction;
@@ -158,6 +167,7 @@ void userMenu() {
                 cout << "\nPlease try again";
                 loading();
                 clear();
+                break;
         }
     }
 }
