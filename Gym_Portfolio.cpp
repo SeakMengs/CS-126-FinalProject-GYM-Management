@@ -22,24 +22,27 @@ void loading() {
 }
 
 //? Struct of user info it has {id, name, contact, subcription, time, pw}
-struct gym {
+class gym {
     //? Declare of user infos in order to collect and store
     int id;
     string name;
     int contact;
-    string subcription;
+    string subscription;
     string time;
     string pw;
+    string fee;
 
+    //? Make function public in order to use function outside of class
+    public:
     //! Function to return variable value in struct
-    int id() {
+    int gymId() {
         return id;
     }
-    string name() {
+    string gymName() {
         return name;
     }
     //? Use for user pw validation
-    string pw() {
+    string gymPw() {
         return pw;
     }
     //!!!!!!!!!!!!!!! End of returning variable function !!!!!!!!!!!!!!!!!!!!!!!
@@ -50,23 +53,69 @@ struct gym {
         cout << "|GYM-MANGEMENT SYSTEM USER MODE|" << endl;
         cout << "********************************" << endl;
     }
-    //? Function to create memembers
-    void createMemember() {
-        logo();
-        cout << "Enter ID: ";
-        cin >> id;
-        cout << "Enter Name: ";
-        cin >> name;
-        cout << "Enter Contact: ";
-        cin >> contact;
-        cout << "Enter Subscription: ";
-        cin >> id;
-        cout << "Enter Time: ";
-        cin >> id;
-        cout << "Enter Password: ";
-        cin >> pw;
-    }
+    //? Function to choose subscription
+    void gymSubscription() { 
+        string choiceInput;
+        char choice;
+        while (choice != '1' || choice != '2' || choice != '3')
+        {   
+            cout << "Choose membership subscription" << endl;
+            cout << "[1] Diamond Membership" << endl;
+            cout << "[2] Gold Membership" << endl;
+            cout << "[3] Bronze Membership" << endl;
+            cout << "Enter choice: ";
+            //? This will get only the first character the user enter
+            getline(cin, choiceInput);
+            if (choiceInput.size() == 1) {
+                choice = choiceInput[0];
+            }
+            switch (choice) {
+                case '1': 
+                    subscription = "Diamond Membership";
+                    fee = "$40 per month";
+                    break;
+                case '2': 
+                    subscription = "Gold Membership";
+                    fee = "$25 per month";
+                    break;
+                case '3': 
+                    subscription = "Bronze Membership";
+                    fee = "$15 per month";
+                    break;
+                default:
+                    cout << "\nPlease try again";
+                    loading();
+                    cout << "\n\n";
+            }
+        }
+        }
+        //? Function to create memembers
+        void createMemember() {
+            logo();
+            cout << "Enter ID: ";
+            cin >> id;
+            cout << "\n\n";
+            cout << "Enter Name: ";
+            cin >> name;
+            cout << "\n\n";
+            cout << "Enter Contact: ";
+            cin >> contact;
+            cout << "\n\n";
+            cin.ignore();
+            gymSubscription();
+            cout << "\n\n";
+            cout << "Enter Time: ";
+            cin >> id;
+            cout << "\n\n";
+            cout << "Enter Password: ";
+            cin >> pw;
+            cout << "\n";
+        }
 };
+//! End of Class
+//? delcare a vector to store info
+vector <gym> gymInfo;
+gym gymFunction;
 
 //? User Menu
 void userMenu() {
@@ -99,7 +148,7 @@ void userMenu() {
         } 
         switch (choice) {
             case '1': 
-                
+                gymFunction.createMemember();
                 break;
             case '2': 
                 break;
