@@ -106,7 +106,6 @@ class gym {
         cin >> contact;
         cout << "\n\n";
         gymSubscription();
-        cout << "\n\n";
         // cout << "Enter Time: ";
         // cin >> id;
         cout << "\n\n";
@@ -159,10 +158,10 @@ void userMenu() {
             case '1': 
                 gymFunction.createMemember();
                 break;
-            case '2': 
-                break;
-            case '3': 
-                break;
+            // case '2': 
+            //     break;
+            // case '3': 
+            //     break;
             default:
                 cout << "\nPlease try again";
                 loading();
