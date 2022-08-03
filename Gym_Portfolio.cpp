@@ -56,20 +56,19 @@ class gym {
     //? Function to choose subscription
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! BBBBBBBBBBBUUUUUUUUUUUUUUUUUUGGGGGGGGGGGGGGGGGGGGGG
     void gymSubscription() { 
-            string choiceInput;
-            char choice;
-        while (choice != '1' || choice != '2' || choice != '3' || choice != 'b' || choice != 'B' )
+        string choiceInput;
+        char choice;
+        while (choice != '1' || choice != '2' || choice != '3')
         {
+            subAgain:
             cout << "Choose membership subscription" << endl;
             cout << "[1] Diamond Membership" << endl;
             cout << "[2] Gold Membership" << endl;
             cout << "[3] Bronze Membership" << endl;
             cout << "Enter choice: ";
             //? This will get only the first character the user enter
-            cin.clear();
-            cin.ignore();
-            getline(cin, choiceInput);
-            if (choiceInput.size() == 1) {
+            cin >> choiceInput;
+            if ((isalpha(choiceInput[0]) == 1) || isdigit(choiceInput[0]) == 1) {
                 choice = choiceInput[0];
             } 
             switch (choice) {
@@ -89,6 +88,7 @@ class gym {
                     cout << "\nPlease try again";
                     loading();
                     cout << "\n\n";
+                    goto subAgain;
             }
             break;
         }
@@ -142,10 +142,10 @@ void userMenu() {
         cout << endl;
         cout << "Your choice: ";
         //? This will get only the first character the user enter
-        getline(cin, choiceInput);
-        if (choiceInput.size() == 1) {
+        cin >> choiceInput;
+        if ((isalpha(choiceInput[0]) == 1) || isdigit(choiceInput[0]) == 1) {
             choice = choiceInput[0];
-        }
+        } 
         if (choice == 'b' || choice == 'B')
         {
             clear();
@@ -192,10 +192,10 @@ void adminMenu() {
         cout << endl;
         cout << "Your choice: ";
         //? This will get only the first character the user enter
-        getline(cin, choiceInput);
-        if (choiceInput.size() == 1) {
+        cin >> choiceInput;
+        if ((isalpha(choiceInput[0]) == 1) || isdigit(choiceInput[0]) == 1) {
             choice = choiceInput[0];
-        }
+        } 
         if (choice == 'b' || choice == 'B')
         {
             clear();
@@ -239,10 +239,10 @@ void mainMenu() {
         cout << endl;
         cout << "Your choice: ";
         //? This will get only the first character the user enter
-        getline(cin, choiceInput);
-        if (choiceInput.size() == 1) {
+        cin >> choiceInput;
+        if ((isalpha(choiceInput[0]) == 1) || isdigit(choiceInput[0]) == 1) {
             choice = choiceInput[0];
-        }
+        } 
         if (choice == 'x' || choice == 'X')
         {
             clear();
