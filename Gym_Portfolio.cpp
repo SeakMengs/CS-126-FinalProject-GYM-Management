@@ -4,8 +4,15 @@
 #include <string>
 #include <cstring>
 #include <vector>
+#include <ctype.h>
 #include <windows.h>
 using namespace std;
+
+//? Function declaration
+void mainMenu();
+void userMenu();
+void adminMenu();
+//! End of Function declaration;
 
 #define maxx 50
 //? Function to clear console
@@ -54,7 +61,6 @@ class gym {
         cout << "********************************" << endl;
     }
     //? Function to choose subscription
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! BBBBBBBBBBBUUUUUUUUUUUUUUUUUUGGGGGGGGGGGGGGGGGGGGGG
     void gymSubscription() { 
         string choiceInput;
         char choice;
@@ -106,8 +112,6 @@ class gym {
         cin >> contact;
         cout << "\n\n";
         gymSubscription();
-        // cout << "Enter Time: ";
-        // cin >> id;
         cout << "\n\n";
         cout << "Enter Password: ";
         cin >> pw;
@@ -129,9 +133,9 @@ gym gymFunction;
 void userMenu() {
     string choiceInput;
     char choice;
-    while (choice != '1' || choice != '2' || choice != '3' || choice != 'b' || choice != 'B' )
+    while (choice != '1' || choice != '2' || choice != '3')
     {
-        clear();
+        // clear();
         cout << "********************************" << endl;
         cout << "|GYM-MANGEMENT SYSTEM USER MODE|" << endl;
         cout << "********************************" << endl;
@@ -145,29 +149,38 @@ void userMenu() {
         cin >> choiceInput;
         if ((isalpha(choiceInput[0]) == 1) || isdigit(choiceInput[0]) == 1) {
             choice = choiceInput[0];
+            toupper(choice);
+            cout << choice;
         } 
-        if (choice == 'b' || choice == 'B')
-        {
-            clear();
-            cout << "Going back to Main-Menu";
-            loading();
-            clear();
-            break;
-        } 
-        switch (choice) {
-            case '1': 
-                gymFunction.createMemember();
-                break;
-            // case '2': 
-            //     break;
-            // case '3': 
-            //     break;
-            default:
-                cout << "\nPlease try again";
-                loading();
-                clear();
-                break;
-        }
+        // if (choice == 'B' || choice == 'b')
+        // {
+        //     clear();
+        //     cout << "Going back to Main-Menu";
+        //     loading();
+        //     clear();
+        //     mainMenu();
+        //     // break;
+        // } 
+        // switch (choice) {
+        //     case '1': 
+        //         gymFunction.createMemember();
+        //         break;
+        //     // case '2': 
+        //     //     break;
+        //     // case '3': 
+        //     //     break;
+        //     case 'B':
+        //         clear();
+        //         cout << "Going back to Main-Menu";
+        //         loading();
+        //         clear();
+        //         mainMenu();
+        //     default:
+        //         cout << "\nPlease try again";
+        //         loading();
+        //         clear();
+        //         // break;
+        // }
     }
 }
 
