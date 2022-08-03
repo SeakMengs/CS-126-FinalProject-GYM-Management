@@ -62,7 +62,6 @@ class gym {
     }
     //? Function to choose subscription
     void gymSubscription() { 
-        string choiceInput;
         char choice;
         while (choice != '1' || choice != '2' || choice != '3')
         {
@@ -73,10 +72,7 @@ class gym {
             cout << "[3] Bronze Membership" << endl;
             cout << "Enter choice: ";
             //? This will get only the first character the user enter
-            cin >> choiceInput;
-            if ((isalpha(choiceInput[0]) == 1) || isdigit(choiceInput[0]) == 1) {
-                choice = choiceInput[0];
-            } 
+            cin >> choice;
             switch (choice) {
                 case '1': 
                     subscription = "Diamond Membership";
@@ -131,11 +127,10 @@ gym gymFunction;
 
 //? User Menu
 void userMenu() {
-    string choiceInput;
     char choice;
-    while (choice != '1' || choice != '2' || choice != '3')
+    while (choice != '1' || choice != '2' || choice != '3' || choice != 'b' || choice != 'B' )
     {
-        // clear();
+        clear();
         cout << "********************************" << endl;
         cout << "|GYM-MANGEMENT SYSTEM USER MODE|" << endl;
         cout << "********************************" << endl;
@@ -146,41 +141,29 @@ void userMenu() {
         cout << endl;
         cout << "Your choice: ";
         //? This will get only the first character the user enter
-        cin >> choiceInput;
-        if ((isalpha(choiceInput[0]) == 1) || isdigit(choiceInput[0]) == 1) {
-            choice = choiceInput[0];
-            toupper(choice);
-            cout << choice;
+        cin >> choice;
+        if (choice == 'b' || choice == 'B')
+        {
+            clear();
+            cout << "Going back to Main-Menu";
+            loading();
+            clear();
+            break;
         } 
-        // if (choice == 'B' || choice == 'b')
-        // {
-        //     clear();
-        //     cout << "Going back to Main-Menu";
-        //     loading();
-        //     clear();
-        //     mainMenu();
-        //     // break;
-        // } 
-        // switch (choice) {
-        //     case '1': 
-        //         gymFunction.createMemember();
-        //         break;
-        //     // case '2': 
-        //     //     break;
-        //     // case '3': 
-        //     //     break;
-        //     case 'B':
-        //         clear();
-        //         cout << "Going back to Main-Menu";
-        //         loading();
-        //         clear();
-        //         mainMenu();
-        //     default:
-        //         cout << "\nPlease try again";
-        //         loading();
-        //         clear();
-        //         // break;
-        // }
+        switch (choice) {
+            case '1': 
+                gymFunction.createMemember();
+                break;
+            // case '2': 
+            //     break;
+            // case '3': 
+            //     break;
+            default:
+                cout << "\nPlease try again";
+                loading();
+                clear();
+                break;
+        }
     }
 }
 
@@ -188,7 +171,6 @@ void userMenu() {
 void adminMenu() {
     clear();
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ADD Login Feature later!!!
-    string choiceInput;
     char choice;
     while (choice != '1' || choice != '2' || choice != '3' || choice != '4' || choice != '5' || choice != 'b' || choice != 'B' )
     {
@@ -205,10 +187,7 @@ void adminMenu() {
         cout << endl;
         cout << "Your choice: ";
         //? This will get only the first character the user enter
-        cin >> choiceInput;
-        if ((isalpha(choiceInput[0]) == 1) || isdigit(choiceInput[0]) == 1) {
-            choice = choiceInput[0];
-        } 
+        cin >> choice;
         if (choice == 'b' || choice == 'B')
         {
             clear();
@@ -238,7 +217,6 @@ void adminMenu() {
 
 //? Main Menu when start
 void mainMenu() {
-    string choiceInput;
     char choice;
     while (choice != '1' || choice != '2' || choice != 'x' || choice != 'X' )
     {
@@ -252,10 +230,7 @@ void mainMenu() {
         cout << endl;
         cout << "Your choice: ";
         //? This will get only the first character the user enter
-        cin >> choiceInput;
-        if ((isalpha(choiceInput[0]) == 1) || isdigit(choiceInput[0]) == 1) {
-            choice = choiceInput[0];
-        } 
+        cin >> choice;
         if (choice == 'x' || choice == 'X')
         {
             clear();
