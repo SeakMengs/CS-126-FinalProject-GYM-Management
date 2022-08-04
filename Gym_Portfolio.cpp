@@ -1,4 +1,4 @@
-//! CS-126 Final-year project by Seakmeng Hor and Bunlong Prak
+//! CS-126 Final-year project by Seakmeng Hor and Bunlong Prak test
 #include <iostream>
 #include <fstream>
 #include <string>
