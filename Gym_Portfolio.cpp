@@ -1,4 +1,4 @@
-//! CS-126 Final-year project by Seakmeng Hor and Bunlong Prak test
+//! CS-126 Final-year project by Seakmeng Hor and Bunlong Prak,hello meng
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -16,20 +16,24 @@ void adminMenu();
 
 #define maxx 50
 //? Function to clear console
-void clear() {
+void clear()
+{
     system("cls");
 }
 
 //? Loading to make it cool
-void loading() {
-    for (int i = 0; i <= 5; i++) {
+void loading()
+{
+    for (int i = 0; i <= 5; i++)
+    {
         cout << ".";
         Sleep(300);
     }
 }
 
 //? Struct of user info it has {id, name, contact, subcription, time, pw}
-class gym {
+class gym
+{
     //? Declare of user infos in order to collect and store
     int id;
     string name;
@@ -40,32 +44,37 @@ class gym {
     string fee;
 
     //? Make function public in order to use function outside of class
-    public:
+public:
     //! Function to return variable value in struct
-    int gymId() {
+    int gymId()
+    {
         return id;
     }
-    string gymName() {
+    string gymName()
+    {
         return name;
     }
     //? Use for user pw validation
-    string gymPw() {
+    string gymPw()
+    {
         return pw;
     }
     //!!!!!!!!!!!!!!! End of returning variable function !!!!!!!!!!!!!!!!!!!!!!!
     //? GYM LOGO on top
-    void logo() {
+    void logo()
+    {
         clear();
         cout << "********************************" << endl;
         cout << "|GYM-MANGEMENT SYSTEM USER MODE|" << endl;
         cout << "********************************" << endl;
     }
     //? Function to choose subscription
-    void gymSubscription() { 
+    void gymSubscription()
+    {
         char choice;
         while (choice != '1' || choice != '2' || choice != '3')
         {
-            subAgain:
+        subAgain:
             cout << "Choose membership subscription" << endl;
             cout << "[1] Diamond Membership" << endl;
             cout << "[2] Gold Membership" << endl;
@@ -73,30 +82,32 @@ class gym {
             cout << "Enter choice: ";
             //? This will get only the first character the user enter
             cin >> choice;
-            switch (choice) {
-                case '1': 
-                    subscription = "Diamond Membership";
-                    fee = "$40 per month";
-                    break;
-                case '2': 
-                    subscription = "Gold Membership";
-                    fee = "$25 per month";
-                    break;
-                case '3': 
-                    subscription = "Bronze Membership";
-                    fee = "$15 per month";
-                    break;
-                default:
-                    cout << "\nPlease try again";
-                    loading();
-                    cout << "\n\n";
-                    goto subAgain;
+            switch (choice)
+            {
+            case '1':
+                subscription = "Diamond Membership";
+                fee = "$40 per month";
+                break;
+            case '2':
+                subscription = "Gold Membership";
+                fee = "$25 per month";
+                break;
+            case '3':
+                subscription = "Bronze Membership";
+                fee = "$15 per month";
+                break;
+            default:
+                cout << "\nPlease try again";
+                loading();
+                cout << "\n\n";
+                goto subAgain;
             }
             break;
         }
     }
     //? Get data from user
-    void getData() {
+    void getData()
+    {
         logo();
         cout << "Enter ID: ";
         cin >> id;
@@ -114,21 +125,22 @@ class gym {
         cout << "\n";
     }
     //? Function to create memembers
-    void createMemember() {
+    void createMemember()
+    {
         getData();
         // fstream file("GymDatabase.txt");
-
     }
 };
 //!!!!!!! End of Class !!!!!!!!!
 //? delcare a vector to store info
-vector <gym> gymInfo;
+vector<gym> gymInfo;
 gym gymFunction;
 
 //? User Menu
-void userMenu() {
+void userMenu()
+{
     char choice;
-    while (choice != '1' || choice != '2' || choice != '3' || choice != 'b' || choice != 'B' )
+    while (choice != '1' || choice != '2' || choice != '3' || choice != 'b' || choice != 'B')
     {
         clear();
         cout << "********************************" << endl;
@@ -149,30 +161,32 @@ void userMenu() {
             loading();
             clear();
             break;
-        } 
-        switch (choice) {
-            case '1': 
-                gymFunction.createMemember();
-                break;
-            // case '2': 
-            //     break;
-            // case '3': 
-            //     break;
-            default:
-                cout << "\nPlease try again";
-                loading();
-                clear();
-                break;
+        }
+        switch (choice)
+        {
+        case '1':
+            gymFunction.createMemember();
+            break;
+        // case '2':
+        //     break;
+        // case '3':
+        //     break;
+        default:
+            cout << "\nPlease try again";
+            loading();
+            clear();
+            break;
         }
     }
 }
 
 //? Admin Menu
-void adminMenu() {
+void adminMenu()
+{
     clear();
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ADD Login Feature later!!!
     char choice;
-    while (choice != '1' || choice != '2' || choice != '3' || choice != '4' || choice != '5' || choice != 'b' || choice != 'B' )
+    while (choice != '1' || choice != '2' || choice != '3' || choice != '4' || choice != '5' || choice != 'b' || choice != 'B')
     {
         clear();
         cout << "*********************************" << endl;
@@ -195,30 +209,32 @@ void adminMenu() {
             loading();
             clear();
             break;
-        } 
-        switch (choice) {
-            case '1': 
-                break;
-            case '2': 
-                break;
-            case '3': 
-                break;
-            case '4': 
-                break;
-            case '5': 
-                break;
-            default:
-                cout << "\nPlease try again";
-                loading();
-                clear();
+        }
+        switch (choice)
+        {
+        case '1':
+            break;
+        case '2':
+            break;
+        case '3':
+            break;
+        case '4':
+            break;
+        case '5':
+            break;
+        default:
+            cout << "\nPlease try again";
+            loading();
+            clear();
         }
     }
 }
 
 //? Main Menu when start
-void mainMenu() {
+void mainMenu()
+{
     char choice;
-    while (choice != '1' || choice != '2' || choice != 'x' || choice != 'X' )
+    while (choice != '1' || choice != '2' || choice != 'x' || choice != 'X')
     {
         clear();
         cout << "**********************" << endl;
@@ -239,24 +255,26 @@ void mainMenu() {
             clear();
             cout << "Thank you for using our program :)";
             break;
-        } 
-        switch (choice) {
-            case '1': 
-                userMenu();
-                break;
-            case '2': 
-                adminMenu();
-                break;
-            default:
-                cout << "\nPlease try again";
-                loading();
-                clear();
+        }
+        switch (choice)
+        {
+        case '1':
+            userMenu();
+            break;
+        case '2':
+            adminMenu();
+            break;
+        default:
+            cout << "\nPlease try again";
+            loading();
+            clear();
         }
     }
 }
 
-int main() {
-    vector <gym> gymInfo;
+int main()
+{
+    vector<gym> gymInfo;
     mainMenu();
     return 0;
 }
