@@ -18,7 +18,7 @@ void displayMember();
 void searchMember();
 void editMember();
 //! End of Function declaration;
-fstream file;
+fstream file, fileTemp;
 #define maxx 50
 //? Function to clear console
 void clear()
@@ -40,7 +40,7 @@ void loading()
 class gym
 {
     //? Declare of user infos in order to collect and store
-    int id;
+    string id;
     string name;
     int contact;
     string subscription;
@@ -51,7 +51,7 @@ class gym
     //? Make function public in order to use function outside of class
     public:
     //! Function to return variable value in struct
-    int gymId()
+    string gymId()
     {
         return id;
     }
@@ -126,9 +126,8 @@ class gym
         cout << "Enter ID: ";
         cin >> id;
         cout << "\n\n";
-        cin.ignore();
         cout << "Enter Name: ";
-        getline(cin, name);
+        cin >> name;
         cout << "\n\n";
         cout << "Enter Contact: ";
         cin >> contact;
@@ -185,6 +184,42 @@ class gym
         file.close();
         cout << endl;
         system("pause");
+    }
+    void modifyMember() {
+        bool found = false;
+        string input;
+        logo();
+        file.open("GymDatabase.txt", ios::in);
+        if (!file) {
+            cout << "No data present" << endl << endl;
+            loading();
+        } else {
+            cout << "Enter ID or Username:  ";
+            cin >> input;
+            fileTemp.open("GymDatabaseTemp.txt", ios::app | ios::out);
+            file >> id >> name >> contact >> subscription  >> fee >> pw;
+            //? if not end of file and have not found the id, continue the loop
+            while(!file.eof() & found == false) {
+                if (input != name || input != id) {
+                    file << id << name << contact << subscription  << fee << pw;
+                } else {
+                    getData();
+                    fileTemp >> id >> name >> contact >> subscription  >> fee >> pw;
+                    found = true;
+                }
+            }
+            file >> id >> name >> contact >> subscription  >> fee >> pw;
+            if (found == false) {
+                cout << "\nNo memberships found";
+                loading();
+                cout << "\n\n";
+            }
+            file.close();
+            fileTemp.close();
+            // remove("GymDatabase.txt");
+            rename("GymDatabaseTemp.txt", "GymDatabase.txt");
+            system("pause");
+        }
     }
 };
 //!!!!!!! End of Class !!!!!!!!!
@@ -279,6 +314,7 @@ void adminMenu()
             gymFunction.createMember();
             break;
         case '2':
+            gymFunction.modifyMember();
             break;
         case '3':
             break;
