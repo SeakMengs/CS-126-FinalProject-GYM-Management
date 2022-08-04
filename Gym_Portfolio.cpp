@@ -12,8 +12,9 @@ using namespace std;
 void mainMenu();
 void userMenu();
 void adminMenu();
+void saveMember();
 //! End of Function declaration;
-
+fstream file;
 #define maxx 50
 //? Function to clear console
 void clear()
@@ -27,7 +28,7 @@ void loading()
     for (int i = 0; i <= 5; i++)
     {
         cout << ".";
-        Sleep(300);
+        Sleep(200);
     }
 }
 
@@ -44,7 +45,7 @@ class gym
     string fee;
 
     //? Make function public in order to use function outside of class
-public:
+    public:
     //! Function to return variable value in struct
     int gymId()
     {
@@ -58,6 +59,15 @@ public:
     string gymPw()
     {
         return pw;
+    }
+    int gymContact() {
+        return contact;
+    }
+    string gymSub() {
+        return subscription;
+    }
+    string gymFee() {
+        return fee;
     }
     //!!!!!!!!!!!!!!! End of returning variable function !!!!!!!!!!!!!!!!!!!!!!!
     //? GYM LOGO on top
@@ -85,16 +95,16 @@ public:
             switch (choice)
             {
             case '1':
-                subscription = "Diamond Membership";
-                fee = "$40 per month";
+                subscription = "Diamond";
+                fee = "$40";
                 break;
             case '2':
-                subscription = "Gold Membership";
-                fee = "$25 per month";
+                subscription = "Gold";
+                fee = "$25";
                 break;
             case '3':
-                subscription = "Bronze Membership";
-                fee = "$15 per month";
+                subscription = "Bronze";
+                fee = "$15";
                 break;
             default:
                 cout << "\nPlease try again";
@@ -123,18 +133,28 @@ public:
         cout << "Enter Password: ";
         cin >> pw;
         cout << "\n";
+        saveMember();
+        cout << "Returning to the menu";
+        loading();
     }
     //? Function to create memembers
-    void createMemember()
+    void createMember()
     {
         getData();
-        // fstream file("GymDatabase.txt");
     }
 };
 //!!!!!!! End of Class !!!!!!!!!
 //? delcare a vector to store info
 vector<gym> gymInfo;
 gym gymFunction;
+
+//? make this  function to save member in admin menu without writing more code
+void saveMember() {
+    file.open("GymDatabase.txt", ios::app | ios::out);
+    file << gymFunction.gymId() << " " << gymFunction.gymName() << " " << gymFunction.gymContact() << " " << gymFunction.gymSub() << " "  << gymFunction.gymFee() << " "<< gymFunction.gymPw() << endl;
+    file.close();
+    cout << "Register successfully" << endl << endl;
+}
 
 //? User Menu
 void userMenu()
@@ -165,7 +185,7 @@ void userMenu()
         switch (choice)
         {
         case '1':
-            gymFunction.createMemember();
+            gymFunction.createMember();
             break;
         // case '2':
         //     break;
