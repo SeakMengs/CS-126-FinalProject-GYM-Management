@@ -13,6 +13,10 @@ void mainMenu();
 void userMenu();
 void adminMenu();
 void saveMember();
+void showData();
+void displayMember();
+void searchMember();
+void editMember();
 //! End of Function declaration;
 fstream file;
 #define maxx 50
@@ -122,8 +126,9 @@ class gym
         cout << "Enter ID: ";
         cin >> id;
         cout << "\n\n";
+        cin.ignore();
         cout << "Enter Name: ";
-        cin >> name;
+        getline(cin, name);
         cout << "\n\n";
         cout << "Enter Contact: ";
         cin >> contact;
@@ -142,16 +147,54 @@ class gym
     {
         getData();
     }
+    //? Show data for displayRecord function
+    void showData() {
+        cout << "Member ID :" << id << endl;
+        cout << "Member Name: " << name << endl;
+        cout << "Member Contact: " << contact << endl;
+        cout << "Member Subscription: " << subscription << endl;
+        cout << "Member payment: " << fee << endl;
+        cout << "Member Password: " << pw << endl;
+        cout << endl;
+    }
+    //? Display record
+    void displayRecord() {
+        int count = 1;
+        logo();
+        file.open("GymDatabase.txt", ios::in);
+        if (!file) {
+            cout << "No data present" << endl << endl;
+            loading();
+        } else {
+            //? from the end of file
+            file.seekg(0, ios::end);  
+            //? Check if file is empty
+            if (file.tellg() == 0) {    
+                cout << "No data present" << endl;
+            } else {
+            //? from the begining of file
+            file.seekg(0, ios::beg);
+            //? if not end of file continue writing the output
+            while (!file.eof()) {
+                file >> id >> name >> contact >> subscription  >> fee >> pw;
+                cout << "Member No.: " << count++ << endl;
+                showData();
+            }
+            }
+        }
+        file.close();
+        cout << endl;
+        system("pause");
+    }
 };
 //!!!!!!! End of Class !!!!!!!!!
 //? delcare a vector to store info
 vector<gym> gymInfo;
 gym gymFunction;
-
 //? make this  function to save member in admin menu without writing more code
 void saveMember() {
     file.open("GymDatabase.txt", ios::app | ios::out);
-    file << gymFunction.gymId() << " " << gymFunction.gymName() << " " << gymFunction.gymContact() << " " << gymFunction.gymSub() << " "  << gymFunction.gymFee() << " "<< gymFunction.gymPw() << endl;
+    file << endl << gymFunction.gymId() << " " << gymFunction.gymName() << " " << gymFunction.gymContact() << " " << gymFunction.gymSub() << " "  << gymFunction.gymFee() << " "<< gymFunction.gymPw();
     file.close();
     cout << "Register successfully" << endl << endl;
 }
@@ -233,12 +276,14 @@ void adminMenu()
         switch (choice)
         {
         case '1':
+            gymFunction.createMember();
             break;
         case '2':
             break;
         case '3':
             break;
         case '4':
+            gymFunction.displayRecord();
             break;
         case '5':
             break;

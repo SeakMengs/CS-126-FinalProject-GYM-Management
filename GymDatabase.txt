@@ -1,1 +1,3 @@
-1 1 1 Diamond $40 1
+
+123 Seakmeng 55 Diamond $40 1
+145 Simple 55 Bronze $15 132
