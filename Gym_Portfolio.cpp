@@ -154,7 +154,6 @@ class gym
         cout << "Member Contact: " << contact << endl;
         cout << "Member Subscription: " << subscription << " membership" << endl;
         cout << "Member payment: " << fee << " monthly"<< endl;
-        cout << "Member Password: " << pw << endl;
         cout << endl;
     }
     //? Display record
@@ -255,6 +254,11 @@ void readDatabase() {
     // }
 }
 
+//? Modify function
+void modifyMember() {
+
+}
+
 //? Search function
 void searchMember() {
     readDatabase();
@@ -322,8 +326,9 @@ void userMenu()
         cout << "|GYM-MANAGEMENT SYSTEM USER MODE|" << endl;
         cout << "*********************************" << endl;
         cout << "[1] Register GYM membership" << endl;
-        cout << "[2] Edit your membership" << endl;
-        cout << "[3] Delete your membership" << endl;
+        cout << "[2] Search for a particular membership" << endl;
+        cout << "[3] Edit your membership" << endl;
+        cout << "[4] Delete your membership" << endl;
         cout << "[B] Go back to Main-Menu" << endl;
         cout << endl;
         cout << "Your choice: ";
@@ -342,8 +347,9 @@ void userMenu()
         case '1':
             gymFunction.createMember();
             break;
-        // case '2':
-        //     break;
+        case '2':
+            searchMember();
+            break;
         // case '3':
         //     break;
         default:
@@ -358,7 +364,33 @@ void userMenu()
 //? Admin Menu
 void adminMenu()
 {
+    string username;
+    string password;
+    while (password != "adminadmin") {
     clear();
+        cout << "**********************************" << endl;
+        cout << "|GYM-MANAGEMENT SYSTEM ADMIN MODE|" << endl;
+        cout << "**********************************" << endl;
+        cout << "Enter username: ";
+        cin >> username;
+        if (username == "admin") {
+            while (true) {
+                cout << "\nEnter password: ";
+                cin >> password;
+                if (password == "adminadmin") {
+                    // Do nothing
+                    break;
+                } else {
+                    cout << "\nPassword is not correct";
+                    Sleep(2000);
+                    clear();
+                }
+            }
+        } else {
+            cout << "\nUsername is not correct";
+            Sleep(2000);
+        }
+    }
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ADD Login Feature later!!!
     char choice;
     while (choice != '1' || choice != '2' || choice != '3' || choice != '4' || choice != '5' || choice != 'b' || choice != 'B')
@@ -368,8 +400,8 @@ void adminMenu()
         cout << "|GYM-MANAGEMENT SYSTEM ADMIN MODE|" << endl;
         cout << "**********************************" << endl;
         cout << "[1] Register GYM membership" << endl;
-        cout << "[2] Edit membership" << endl;
-        cout << "[3] Search for a particular membership" << endl;
+        cout << "[2] Search for a particular membership" << endl;
+        cout << "[3] Edit membership" << endl;
         cout << "[4] Display all memberships" << endl;
         cout << "[5] Delete membership" << endl;
         cout << "[B] Go back to Main-Menu" << endl;
@@ -391,10 +423,10 @@ void adminMenu()
             gymFunction.createMember();
             break;
         case '2':
-            // gymFunction.modifyMember();
+            searchMember();
             break;
         case '3':
-            searchMember();
+            modifyMember();
             break;
         case '4':
             gymFunction.displayRecord();
