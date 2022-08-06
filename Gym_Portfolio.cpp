@@ -1,4 +1,4 @@
-//! CS-126 Final-year project by Seakmeng Hor and Bunlong Prak,hello meng
+//! CS-126 Final-year project by Seakmeng Hor and Bunlong Prak
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -9,6 +9,7 @@
 using namespace std;
 
 //? Function declaration
+void readDatabase();
 void mainMenu();
 void userMenu();
 void adminMenu();
@@ -16,7 +17,7 @@ void saveMember();
 void showData();
 void displayMember();
 void searchMember();
-void editMember();
+void modifyMember();
 //! End of Function declaration;
 fstream file, fileTemp;
 #define maxx 50
@@ -36,20 +37,20 @@ void loading()
     }
 }
 
-//? Struct of user info it has {id, name, contact, subcription, time, pw}
+//? Struct of user info it has {id, name, contact, subscription, time, pw}
 class gym
 {
+    //? Make function public in order to use function outside of class
+    public:
     //? Declare of user infos in order to collect and store
     string id;
     string name;
-    int contact;
+    string contact;
     string subscription;
     // string time;
-    string pw;
     string fee;
+    string pw;
 
-    //? Make function public in order to use function outside of class
-    public:
     //! Function to return variable value in struct
     string gymId()
     {
@@ -64,7 +65,7 @@ class gym
     {
         return pw;
     }
-    int gymContact() {
+    string gymContact() {
         return contact;
     }
     string gymSub() {
@@ -79,7 +80,7 @@ class gym
     {
         clear();
         cout << "********************************" << endl;
-        cout << "|GYM-MANGEMENT SYSTEM USER MODE|" << endl;
+        cout << "|GYM-MANAGEMENT SYSTEM USER MODE|" << endl;
         cout << "********************************" << endl;
     }
     //? Function to choose subscription
@@ -141,7 +142,7 @@ class gym
         cout << "Returning to the menu";
         loading();
     }
-    //? Function to create memembers
+    //? Function to create members
     void createMember()
     {
         getData();
@@ -151,8 +152,8 @@ class gym
         cout << "Member ID :" << id << endl;
         cout << "Member Name: " << name << endl;
         cout << "Member Contact: " << contact << endl;
-        cout << "Member Subscription: " << subscription << endl;
-        cout << "Member payment: " << fee << endl;
+        cout << "Member Subscription: " << subscription << " membership" << endl;
+        cout << "Member payment: " << fee << " monthly"<< endl;
         cout << "Member Password: " << pw << endl;
         cout << endl;
     }
@@ -171,7 +172,7 @@ class gym
             if (file.tellg() == 0) {    
                 cout << "No data present" << endl;
             } else {
-            //? from the begining of file
+            //? from the beginning of file
             file.seekg(0, ios::beg);
             //? if not end of file continue writing the output
             while (!file.eof()) {
@@ -185,51 +186,127 @@ class gym
         cout << endl;
         system("pause");
     }
-    void modifyMember() {
-        bool found = false;
-        string input;
-        logo();
-        file.open("GymDatabase.txt", ios::in);
-        if (!file) {
-            cout << "No data present" << endl << endl;
-            loading();
-        } else {
-            cout << "Enter ID or Username:  ";
-            cin >> input;
-            fileTemp.open("GymDatabaseTemp.txt", ios::app | ios::out);
-            file >> id >> name >> contact >> subscription  >> fee >> pw;
-            //? if not end of file and have not found the id, continue the loop
-            while(!file.eof() & found == false) {
-                if (input != name || input != id) {
-                    file << id << name << contact << subscription  << fee << pw;
-                } else {
-                    getData();
-                    fileTemp >> id >> name >> contact >> subscription  >> fee >> pw;
-                    found = true;
-                }
-            }
-            file >> id >> name >> contact >> subscription  >> fee >> pw;
-            if (found == false) {
-                cout << "\nNo memberships found";
-                loading();
-                cout << "\n\n";
-            }
-            file.close();
-            fileTemp.close();
-            // remove("GymDatabase.txt");
-            rename("GymDatabaseTemp.txt", "GymDatabase.txt");
-            system("pause");
-        }
-    }
+    // void modifyMember() {
+    //     bool found = false;
+    //     string input;
+    //     logo();
+    //     file.open("GymDatabase.txt", ios::in);
+    //     if (!file) {
+    //         cout << "No data present" << endl << endl;
+    //         loading();
+    //     } else {
+    //         cout << "Enter ID or Username:  ";
+    //         cin >> input;
+    //         fileTemp.open("GymDatabaseTemp.txt", ios::app | ios::out);
+    //         file >> id >> name >> contact >> subscription  >> fee >> pw;
+    //         //? if not end of file and have not found the id, continue the loop
+    //         while(!file.eof() & found == false) {
+    //             if (input != name || input != id) {
+    //                 file << id << name << contact << subscription  << fee << pw;
+    //             } else {
+    //                 getData();
+    //                 fileTemp >> id >> name >> contact >> subscription  >> fee >> pw;
+    //                 found = true;
+    //             }
+    //         }
+    //         file >> id >> name >> contact >> subscription  >> fee >> pw;
+    //         if (found == false) {
+    //             cout << "\nNo memberships found";
+    //             loading();
+    //             cout << "\n\n";
+    //         }
+    //         file.close();
+    //         fileTemp.close();
+    //         // remove("GymDatabase.txt");
+    //         rename("GymDatabaseTemp.txt", "GymDatabase.txt");
+    //         system("pause");
+    //     }
+    // }
 };
 //!!!!!!! End of Class !!!!!!!!!
 //? delcare a vector to store info
 vector<gym> gymInfo;
 gym gymFunction;
+
+//? Read from database and bring it into vector of gymInfo
+void readDatabase() {
+    //? Clear all elements of vector before read it from file
+    gymInfo.clear();
+    string idRead, nameRead, contactRead, subcriptionRead, feeRead, pwRead;
+    file.open("GymDatabase.txt", ios::in);
+    if (file.is_open()) {
+    while (!file.eof()) {
+        //? Read from file and place it in vector of gymInfo
+        file >>  idRead >> nameRead >> contactRead >> subcriptionRead >> feeRead >> pwRead;
+        gymInfo.emplace_back() = {idRead, nameRead, contactRead, subcriptionRead, feeRead, pwRead};
+    }
+    }
+    file.close();
+    //! For debugging do not delete
+    // cout << "Size: " << gymInfo.size() << endl; 
+    // for (int i = 0; i < gymInfo.size() - 1; i++) {
+    //         cout << "Member ID: " << gymInfo[i].id << endl;
+    //         cout << "Member Name: " << gymInfo[i].name << endl;
+    //         cout << "Member Contact: " << gymInfo[i].contact << endl;
+    //         cout << "Member Subscription: " << gymInfo[i].subscription << endl;
+    //         cout << "Member payment: " << gymInfo[i].fee << endl;
+    //         cout << "Member Password: " << gymInfo[i].pw << endl;
+    //         cout << endl;
+    // }
+}
+
+//? Search function
+void searchMember() {
+    readDatabase();
+    string input;
+    bool found = false;
+    string again;
+    gymFunction.logo();
+    cout << "Enter ID or Username: ";
+    cin >> input;
+    cout << endl;
+    //? After reading database and placing all the info into vector we check to search for user info
+    for (int i = 0; i < gymInfo.size() - 1; i++) {
+        if (gymInfo[i].name == input || gymInfo[i].id == input) {
+            cout << "Member ID: " << gymInfo[i].id << endl;
+            cout << "Member Name: " << gymInfo[i].name << endl;
+            cout << "Member Contact: " << gymInfo[i].contact << endl;
+            cout << "Member Subscription: " << gymInfo[i].subscription  << " membership" << endl;
+            cout << "Member payment: " << gymInfo[i].fee << " monthly"<< endl;
+            //? We do not want to show password here
+            // cout << "Member Password: " << gymInfo[i].pw << endl;
+            cout << endl;
+            found = true;
+            system("pause");
+            break;
+        }
+    } 
+    if (found == false) {
+    cout << "ID or Username not found!" << endl;
+    cout << "\nDo you want to try again?" << endl;
+    cout << "[Y] Yes \t[N] No" << endl;
+    cout << "Your choice: ";
+    cin >> again;
+    cout << endl;
+    while (true) {
+        if (again == "Y" || again == "y") {
+            clear();
+            searchMember();
+            break;
+        } else if (again == "N" || again == "n") {
+            cout << "Going back to Menu";
+            loading();
+            adminMenu();
+            break;
+        }
+    }
+    }
+}
+
 //? make this  function to save member in admin menu without writing more code
 void saveMember() {
     file.open("GymDatabase.txt", ios::app | ios::out);
-    file << endl << gymFunction.gymId() << " " << gymFunction.gymName() << " " << gymFunction.gymContact() << " " << gymFunction.gymSub() << " "  << gymFunction.gymFee() << " "<< gymFunction.gymPw();
+    file << gymFunction.gymId() << " " << gymFunction.gymName() << " " << gymFunction.gymContact() << " " << gymFunction.gymSub() << " "  << gymFunction.gymFee() << " "<< gymFunction.gymPw() << endl;
     file.close();
     cout << "Register successfully" << endl << endl;
 }
@@ -241,9 +318,9 @@ void userMenu()
     while (choice != '1' || choice != '2' || choice != '3' || choice != 'b' || choice != 'B')
     {
         clear();
-        cout << "********************************" << endl;
-        cout << "|GYM-MANGEMENT SYSTEM USER MODE|" << endl;
-        cout << "********************************" << endl;
+        cout << "*********************************" << endl;
+        cout << "|GYM-MANAGEMENT SYSTEM USER MODE|" << endl;
+        cout << "*********************************" << endl;
         cout << "[1] Register GYM membership" << endl;
         cout << "[2] Edit your membership" << endl;
         cout << "[3] Delete your membership" << endl;
@@ -287,9 +364,9 @@ void adminMenu()
     while (choice != '1' || choice != '2' || choice != '3' || choice != '4' || choice != '5' || choice != 'b' || choice != 'B')
     {
         clear();
-        cout << "*********************************" << endl;
-        cout << "|GYM-MANGEMENT SYSTEM ADMIN MODE|" << endl;
-        cout << "*********************************" << endl;
+        cout << "**********************************" << endl;
+        cout << "|GYM-MANAGEMENT SYSTEM ADMIN MODE|" << endl;
+        cout << "**********************************" << endl;
         cout << "[1] Register GYM membership" << endl;
         cout << "[2] Edit membership" << endl;
         cout << "[3] Search for a particular membership" << endl;
@@ -314,9 +391,10 @@ void adminMenu()
             gymFunction.createMember();
             break;
         case '2':
-            gymFunction.modifyMember();
+            // gymFunction.modifyMember();
             break;
         case '3':
+            searchMember();
             break;
         case '4':
             gymFunction.displayRecord();
@@ -338,9 +416,9 @@ void mainMenu()
     while (choice != '1' || choice != '2' || choice != 'x' || choice != 'X')
     {
         clear();
-        cout << "**********************" << endl;
-        cout << "|GYM-MANGEMENT SYSTEM|" << endl;
-        cout << "**********************" << endl;
+        cout << "***********************" << endl;
+        cout << "|GYM-MANAGEMENT SYSTEM|" << endl;
+        cout << "***********************" << endl;
         cout << "[1] User Mode" << endl;
         cout << "[2] Admin Mode" << endl;
         cout << "[X] Exit" << endl;
@@ -375,7 +453,6 @@ void mainMenu()
 
 int main()
 {
-    vector<gym> gymInfo;
     mainMenu();
     return 0;
 }
