@@ -18,6 +18,7 @@ void showData();
 void displayMember();
 void searchMember();
 void modifyMember();
+void deleteMember();
 //! End of Function declaration;
 fstream file, fileTemp;
 #define maxx 50
@@ -186,42 +187,7 @@ class gym
         cout << endl;
         system("pause");
     }
-    // void modifyMember() {
-    //     bool found = false;
-    //     string input;
-    //     logo();
-    //     file.open("GymDatabase.txt", ios::in);
-    //     if (!file) {
-    //         cout << "No data present" << endl << endl;
-    //         loading();
-    //     } else {
-    //         cout << "Enter ID or Username:  ";
-    //         cin >> input;
-    //         fileTemp.open("GymDatabaseTemp.txt", ios::app | ios::out);
-    //         file >> id >> name >> contact >> subscription  >> fee >> pw;
-    //         //? if not end of file and have not found the id, continue the loop
-    //         while(!file.eof() & found == false) {
-    //             if (input != name || input != id) {
-    //                 file << id << name << contact << subscription  << fee << pw;
-    //             } else {
-    //                 getData();
-    //                 fileTemp >> id >> name >> contact >> subscription  >> fee >> pw;
-    //                 found = true;
-    //             }
-    //         }
-    //         file >> id >> name >> contact >> subscription  >> fee >> pw;
-    //         if (found == false) {
-    //             cout << "\nNo memberships found";
-    //             loading();
-    //             cout << "\n\n";
-    //         }
-    //         file.close();
-    //         fileTemp.close();
-    //         // remove("GymDatabase.txt");
-    //         rename("GymDatabaseTemp.txt", "GymDatabase.txt");
-    //         system("pause");
-    //     }
-    // }
+
 };
 //!!!!!!! End of Class !!!!!!!!!
 //? delcare a vector to store info
@@ -242,17 +208,42 @@ void readDatabase() {
     }
     }
     file.close();
-    //! For debugging do not delete
-    // cout << "Size: " << gymInfo.size() << endl; 
-    // for (int i = 0; i < gymInfo.size() - 1; i++) {
-    //         cout << "Member ID: " << gymInfo[i].id << endl;
-    //         cout << "Member Name: " << gymInfo[i].name << endl;
-    //         cout << "Member Contact: " << gymInfo[i].contact << endl;
-    //         cout << "Member Subscription: " << gymInfo[i].subscription << endl;
-    //         cout << "Member payment: " << gymInfo[i].fee << endl;
-    //         cout << "Member Password: " << gymInfo[i].pw << endl;
-    //         cout << endl;
-    // }
+}
+
+//? Delete function
+void deleteMember() {
+        readDatabase();
+    fileTemp.open ("gymDatabaseTemp.txt", ios::app | ios::out);
+    string input;
+    bool found = false;
+    string again;
+    gymFunction.logo();
+    cout << "Enter ID or Username: ";
+    cin >> input;
+    cout << endl;
+    //? After reading database and placing all the info into vector we check to search for user info
+    for (int i = 0; i < gymInfo.size() - 1; i++) {
+        if (gymInfo[i].name == input || gymInfo[i].id == input) {
+            cout << "User found, we are deleting the membership";
+            loading();
+            cout << endl << endl;
+            //? Remove object element from vector
+            gymInfo.erase(gymInfo.begin()+i);
+            for (int i = 0; i < gymInfo.size() - 1; i++) {
+                if (gymInfo[i].name != input || gymInfo[i].id != input) {
+                    if (fileTemp.is_open()) {
+                        fileTemp <<  gymInfo[i].id << " " << gymInfo[i].name << " " << gymInfo[i].contact << " " << gymInfo[i].subscription << " " << gymInfo[i].fee << " " << gymInfo[i].pw << endl;
+                    }
+                }  
+            }
+            cout << "Membership delete sucessfully";
+            loading();
+            break;
+        } 
+    }
+    fileTemp.close();
+    remove("GymDatabase.txt");
+    rename("GymDatabaseTemp.txt", "GymDatabase.txt");
 }
 
 //? Modify function
@@ -405,6 +396,9 @@ void userMenu()
         case '3':
             modifyMember();
             break;
+        case '4':
+            deleteMember();
+            break;
         default:
             cout << "\nPlease try again";
             loading();
@@ -485,6 +479,7 @@ void adminMenu()
             gymFunction.displayRecord();
             break;
         case '5':
+            deleteMember();
             break;
         default:
             cout << "\nPlease try again";
