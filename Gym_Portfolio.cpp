@@ -212,75 +212,172 @@ void readDatabase() {
 
 //? Delete function
 void deleteMember() {
-        readDatabase();
-    fileTemp.open ("gymDatabaseTemp.txt", ios::app | ios::out);
+    readDatabase();
     string input;
-    bool found = false;
-    string again;
-    gymFunction.logo();
-    cout << "Enter ID or Username: ";
-    cin >> input;
-    cout << endl;
-    //? After reading database and placing all the info into vector we check to search for user info
-    for (int i = 0; i < gymInfo.size() - 1; i++) {
-        if (gymInfo[i].name == input || gymInfo[i].id == input) {
-            cout << "User found, we are deleting the membership";
+    string inputPw;
+    bool login = false;
+    bool username = false;
+    while (username == false) {
+        clear();
+        gymFunction.logo();
+        cout << "[X] to go back to Main-Menu" << endl << endl;
+        cout << "Enter username or id: ";
+        cin >> input;
+        if (input == "x" || input == "X") {
+            clear();
+            cout << "Going back to Main-Menu";
             loading();
-            cout << endl << endl;
-            //? Remove object element from vector
-            gymInfo.erase(gymInfo.begin()+i);
-            for (int i = 0; i < gymInfo.size() - 1; i++) {
-                if (gymInfo[i].name != input || gymInfo[i].id != input) {
-                    if (fileTemp.is_open()) {
-                        fileTemp <<  gymInfo[i].id << " " << gymInfo[i].name << " " << gymInfo[i].contact << " " << gymInfo[i].subscription << " " << gymInfo[i].fee << " " << gymInfo[i].pw << endl;
-                    }
-                }  
-            }
-            cout << "Membership delete sucessfully";
-            loading();
+            clear();
+            mainMenu();
             break;
-        } 
+        }
+        for (int i = 0; i < gymInfo.size() - 1; i++) {
+            if (input == gymInfo[i].id || input == gymInfo[i].name) {
+                username = true;
+                break;
+            }
+        }
+        if (username == false) {
+        cout << "User or Id is not correct, please try again";
+        loading();
+        }
     }
-    fileTemp.close();
-    remove("GymDatabase.txt");
-    rename("GymDatabaseTemp.txt", "GymDatabase.txt");
+    while (login == false) {
+        cout << "Enter password: ";
+        cin >> inputPw;
+        if (inputPw == "x" || inputPw == "X") {
+            clear();
+            cout << "Going back to Main-Menu";
+            loading();
+            clear();
+            mainMenu();
+            break;
+        }
+        for (int i = 0; i < gymInfo.size() - 1; i++) {
+            if (inputPw == gymInfo[i].pw) {
+                login = true;
+                break;
+            }
+        }
+        if (login == false) {
+        cout << "User or Id is not correct, please try again";
+        loading();
+        cout << endl;
+        }
+    }
+    if (login == true) {
+        fileTemp.open ("gymDatabaseTemp.txt", ios::app | ios::out);
+        clear();
+        gymFunction.logo();
+        cout << endl;
+        //? After reading database and placing all the info into vector we check to search for user info
+        for (int i = 0; i < gymInfo.size() - 1; i++) {
+            if (gymInfo[i].name == input || gymInfo[i].id == input) {
+                cout << "User found, we are deleting the membership";
+                loading();
+                cout << endl << endl;
+                //? Remove object element from vector
+                gymInfo.erase(gymInfo.begin()+i);
+                for (int i = 0; i < gymInfo.size() - 1; i++) {
+                    if (gymInfo[i].name != input || gymInfo[i].id != input) {
+                        if (fileTemp.is_open()) {
+                            fileTemp <<  gymInfo[i].id << " " << gymInfo[i].name << " " << gymInfo[i].contact << " " << gymInfo[i].subscription << " " << gymInfo[i].fee << " " << gymInfo[i].pw << endl;
+                        }
+                    }  
+                }
+                cout << "Membership delete sucessfully";
+                loading();
+                break;
+            } 
+        }
+        fileTemp.close();
+        remove("GymDatabase.txt");
+        rename("GymDatabaseTemp.txt", "GymDatabase.txt");
+    }
 }
 
 //? Modify function
 void modifyMember() {
     readDatabase();
-    fileTemp.open ("gymDatabaseTemp.txt", ios::app | ios::out);
     string input;
-    bool found = false;
-    string again;
-    gymFunction.logo();
-    cout << "Enter ID or Username: ";
-    cin >> input;
-    cout << endl;
-    //? After reading database and placing all the info into vector we check to search for user info
-    for (int i = 0; i < gymInfo.size() - 1; i++) {
-        if (gymInfo[i].name == input || gymInfo[i].id == input) {
-            cout << "User found, we are redirecting you to modification mode";
+    string inputPw;
+    bool login = false;
+    bool username = false;
+    while (username == false) {
+        clear();
+        gymFunction.logo();
+        cout << "[X] to go back to Main-Menu" << endl << endl;
+        cout << "Enter username or id: ";
+        cin >> input;
+        if (input == "x" || input == "X") {
+            clear();
+            cout << "Going back to Main-Menu";
             loading();
-            gymFunction.getData();
-            fileTemp << gymFunction.gymId() << " " << gymFunction.gymName() << " " << gymFunction.gymContact() << " " << gymFunction.gymSub() << " "  << gymFunction.gymFee() << " "<< gymFunction.gymPw() << endl;
-            //? Remove object element from vector
-            gymInfo.erase(gymInfo.begin()+i);
-            for (int i = 0; i < gymInfo.size() - 1; i++) {
-                if (gymInfo[i].name != input || gymInfo[i].id != input) {
-                    if (fileTemp.is_open()) {
-                        fileTemp <<  gymInfo[i].id << " " << gymInfo[i].name << " " << gymInfo[i].contact << " " << gymInfo[i].subscription << " " << gymInfo[i].fee << " " << gymInfo[i].pw << endl;
-                    }
-                }  
-            }
-            cout << "Modification sucessfully" << endl << endl;
-            system("pause");
+            clear();
+            mainMenu();
             break;
-        } 
+        }
+        for (int i = 0; i < gymInfo.size() - 1; i++) {
+            if (input == gymInfo[i].id || input == gymInfo[i].name) {
+                username = true;
+                break;
+            }
+        }
+        if (username == false) {
+        cout << "User or Id is not correct, please try again";
+        loading();
+        }
     }
-    fileTemp.close();
-    remove("GymDatabase.txt");
-    rename("GymDatabaseTemp.txt", "GymDatabase.txt");
+    while (login == false) {
+        cout << "Enter password: ";
+        cin >> inputPw;
+        if (inputPw == "x" || inputPw == "X") {
+            clear();
+            cout << "Going back to Main-Menu";
+            loading();
+            clear();
+            mainMenu();
+            break;
+        }
+        for (int i = 0; i < gymInfo.size() - 1; i++) {
+            if (inputPw == gymInfo[i].pw) {
+                login = true;
+                break;
+            }
+        }
+        if (login == false) {
+        cout << "User or Id is not correct, please try again";
+        loading();
+        cout << endl;
+        }
+    }
+    if (login == true) {
+        fileTemp.open ("gymDatabaseTemp.txt", ios::app | ios::out);
+        //? After reading database and placing all the info into vector we check to search for user info
+        for (int i = 0; i < gymInfo.size() - 1; i++) {
+            if (gymInfo[i].name == input || gymInfo[i].id == input) {
+                cout << "User found, we are redirecting you to modification mode";
+                loading();
+                gymFunction.getData();
+                fileTemp << gymFunction.gymId() << " " << gymFunction.gymName() << " " << gymFunction.gymContact() << " " << gymFunction.gymSub() << " "  << gymFunction.gymFee() << " "<< gymFunction.gymPw() << endl;
+                //? Remove object element from vector
+                gymInfo.erase(gymInfo.begin()+i);
+                for (int i = 0; i < gymInfo.size() - 1; i++) {
+                    if (gymInfo[i].name != input || gymInfo[i].id != input) {
+                        if (fileTemp.is_open()) {
+                            fileTemp <<  gymInfo[i].id << " " << gymInfo[i].name << " " << gymInfo[i].contact << " " << gymInfo[i].subscription << " " << gymInfo[i].fee << " " << gymInfo[i].pw << endl;
+                        }
+                    }  
+                }
+                cout << "Modification sucessfully" << endl << endl;
+                system("pause");
+                break;
+            } 
+        }
+        fileTemp.close();
+        remove("GymDatabase.txt");
+        rename("GymDatabaseTemp.txt", "GymDatabase.txt");
+    }
     //? Ask user to try again
     // if (found == false) {
     // cout << "ID or Username not found!" << endl;
@@ -492,6 +589,7 @@ void adminMenu()
 //? Main Menu when start
 void mainMenu()
 {
+    string thank = "Thank you for using our program :)";
     char choice;
     while (choice != '1' || choice != '2' || choice != 'x' || choice != 'X')
     {
@@ -512,7 +610,11 @@ void mainMenu()
             cout << "Exiting";
             loading();
             clear();
-            cout << "Thank you for using our program :)";
+            for (char c : thank) {
+                cout << c;
+                Sleep(180);
+            }
+            exit(0);
             break;
         }
         switch (choice)
