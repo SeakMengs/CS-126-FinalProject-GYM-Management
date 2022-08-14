@@ -21,7 +21,6 @@ void modifyMember();
 void deleteMember();
 //! End of Function declaration;
 fstream file, fileTemp;
-#define maxx 50
 //? Function to clear console
 void clear()
 {
