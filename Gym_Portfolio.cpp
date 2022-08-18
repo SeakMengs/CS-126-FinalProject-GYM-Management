@@ -214,6 +214,7 @@ void readDatabase() {
     file.close();
 }
 
+//? Check the size of vector so that when displaying the infomation we don't get extra information
 int vectorSize(int vectorSizeCount) {
     readDatabase();
     vectorSizeCount = gymInfo.size() - 1;
