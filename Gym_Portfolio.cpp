@@ -10,6 +10,7 @@ using namespace std;
 
 //? Function declaration
 void readDatabase();
+int vectorSize(int vectorSizeCount);
 void mainMenu();
 void userMenu();
 void adminMenu();
@@ -160,6 +161,8 @@ class gym
     //? Display record
     void displayRecord() {
         int count = 1;
+        int vecSize = 0;
+        vecSize = vectorSize(0);
         logo();
         file.open("GymDatabase.txt", ios::in);
         if (!file) {
@@ -179,6 +182,9 @@ class gym
                 file >> id >> name >> contact >> subscription  >> fee >> pw;
                 cout << "Member No.: " << count++ << endl;
                 showData();
+                if (count == vecSize + 1) {
+                    break;
+                }
             }
             }
         }
@@ -186,7 +192,6 @@ class gym
         cout << endl;
         system("pause");
     }
-
 };
 //!!!!!!! End of Class !!!!!!!!!
 //? delcare a vector to store info
@@ -209,6 +214,11 @@ void readDatabase() {
     file.close();
 }
 
+int vectorSize(int vectorSizeCount) {
+    readDatabase();
+    vectorSizeCount = gymInfo.size() - 1;
+    return vectorSizeCount;
+}
 //? Delete function
 void deleteMember() {
     readDatabase();
@@ -377,26 +387,6 @@ void modifyMember() {
         remove("GymDatabase.txt");
         rename("GymDatabaseTemp.txt", "GymDatabase.txt");
     }
-    //? Ask user to try again
-    // if (found == false) {
-    // cout << "ID or Username not found!" << endl;
-    // cout << "\nDo you want to try again?" << endl;
-    // cout << "[Y] Yes \t[N] No" << endl;
-    // cout << "Your choice: ";
-    // cin >> again;
-    // cout << endl;
-    // while (true) {
-    //     if (again == "Y" || again == "y") {
-    //         clear();
-    //         searchMember();
-    //         break;
-    //     } else if (again == "N" || again == "n") {
-    //         cout << "Going back to Menu";
-    //         loading();
-    //         break;
-    //     }
-    // }
-    // }
 }
 
 //? Search function
